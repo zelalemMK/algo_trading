@@ -4,7 +4,10 @@ const AlphaDataToStockData = (props) => {
         Data: {
             symbol: ""
         },
-        Series: {}
+        Series: {
+            open: "",
+            close: ""
+        }
     };
     for (let [key, value] of Object.entries(props))
             {
@@ -23,10 +26,8 @@ const AlphaDataToStockData = (props) => {
                 else {
                     for (let [key1, value1] of Object.entries(value))
                     {
-                        let id = 1;
-                        AlphaData.Series.append(value1);
-                        AlphaData.Series.id = id        
-                       id++;              
+                     AlphaData.Series = value1;
+                     console.log(value[key1]["1. open"])          
                     }
                 }
             }

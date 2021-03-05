@@ -7,33 +7,39 @@ const Home = (props) => {
     const [Alpha, setAlpha] = useState([]);
     const [TimeStamp, setTimeStamp] = useState([]);
     const [Stock, setStock] = useState([]);
+    console.log(typeof TimeStamp)
 
     let i = 0;
     const getStockData = () => {
         HomeManager.getAll().then((results) => {
             setAlpha(results);
 
-            // for (const [key, value] of Object.entries(results)) {
-            //     if(i == 0)
-            //     {
-            //         setStock(value);
-            //     }
-            //     else
-            //     {
-            //         setTimeStamp(value)
-            //     }
-            //     i++
-            //   }
+            for (const [key, value] of Object.entries(results)) {
+                if(key.startsWith("Meta"))
+                {
+                    setStock(value);
+                }
+                else
+                {
+                     for (const [key1, value1] of Object.entries(value)) {
+                        TimeStamp.push(value1)
+                    }
+                   
+                }
+              }
+              console.log(TimeStamp)
         })
     }
 
     useEffect(() => {
         getStockData();
     }, [])
-let id = 1;
+let id = TimeStamp.length;
     return(
         <>
-        <HomeJSX stock={Stock} timeStamp={TimeStamp}/>
+        <h1>Home</h1>
+        <h2>{Stock["2. Symbol"]}</h2>
+        {TimeStamp.map(element => <HomeJSX key={element["5. volume"] + element["1. open"]} e={element} /> )}
         </>
     )
 }

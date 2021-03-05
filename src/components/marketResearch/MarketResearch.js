@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 
-const MarketResearch = (props) => {
+const History = (props) => {
 
     return (
         <>
@@ -9,4 +9,4 @@ const MarketResearch = (props) => {
     )
 }
 
-export default MarketResearch
+export default History

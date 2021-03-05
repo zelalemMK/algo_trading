@@ -11,7 +11,7 @@ import Home from "../components/home/Home";
 
 
 //Market Research
-import MarketResearch from "../components/marketResearch/MarketResearch";
+import History from "../components/marketResearch/MarketResearch";
 
 
 const ApplicationView = (props) => {
@@ -29,9 +29,9 @@ const ApplicationView = (props) => {
 
             <Route
                 exact
-                path="/Market"
+                path="/History"
                 render={props => {
-                    return <MarketResearch {...props} />
+                    return <History {...props} />
                 }}
             />
 
