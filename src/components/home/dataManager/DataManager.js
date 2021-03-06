@@ -1,6 +1,4 @@
 import ApiKey from "../../../ApiKey/ApiKey";
-import AlphaDataToStockData from "../../../helperFunctions/AlphaData_StockData"
-
 const AlphaVantage = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=AAPL&interval=5min&apikey=${ApiKey}`;
 
 const HomeManager = {
