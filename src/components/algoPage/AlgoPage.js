@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
 import AlgoDataManager from "./dataManager/DataManager"
 import AlgoStockJSX from "./JSX/AlgoStockJSX"
-import AlphaDataManager from "../../AlphaVantageData/DataManager";
+import AlphaDataManager from "../../AlphaVantageData/DataManager"
+
 
 const AlgoPage = (props) => {
 
@@ -98,4 +99,4 @@ useEffect(() => {
     )
 }
 
-export default AlgoPage
+export default AlgoPage;
