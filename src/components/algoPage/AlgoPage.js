@@ -7,6 +7,8 @@ import AlphaDataManager from "../../AlphaVantageData/DataManager"
 const AlgoPage = (props) => {
 
     const [ticker, setTicker] = useState([]);
+    const [dbData, setDbData] = useState([])
+    const [cash, setCash] = useState([]);
     const [newData, setNewData] = useState([]);
     const [alphaData, setAlphaData] = useState([]);
     const [timeSeries, setTimeSeries] = useState([]);
@@ -20,7 +22,8 @@ const handleFieldChange = evt => {
 
 const getAlgoData = () => {
     AlgoDataManager.getAll().then((results) => {
-        setTicker(results);
+        setDbData(results);
+        console.log(results)
     })
 }
 const getAlphaData = evt => {
@@ -30,7 +33,9 @@ const getAlphaData = evt => {
         window.alert("Please input a ticker");
     }
     else {
-       AlphaDataManager.getStock(newData).then((results) => {
+      try {
+
+      AlphaDataManager.getStock(newData).then((results) => {
            setAlphaData(results);
            for (const [key, value] of Object.entries(results)) {
             
@@ -47,6 +52,15 @@ const getAlphaData = evt => {
 
             }
        })
+       if(!alphaData["Meta Data"]["2. Symbol"])
+       {
+        throw "error"
+       }
+    }
+    catch(e)
+    {
+        window.alert("invalid ticker sybmol or must wait until API is ready")
+    }
     }
 }
 
@@ -59,12 +73,21 @@ const newTicker = evt => {
     else {
         AlgoDataManager.post(newData).then(() => {
             getAlgoData();
+            console.log()
         })
     }
 }
 
+const cashChange = evt => {
+    setCash(cash - 100);
+}
+
+const giveCash = () => {
+ setCash(100000);
+}
+
 useEffect(() => {
-    getAlgoData();
+    giveCash()
 }, [])
 
 
@@ -88,13 +111,35 @@ useEffect(() => {
                 </fieldset>
             </form>
             </section>
-            { Object.entries(alphaData).length !== 0 ? <section className="border my-3 py-3">
-                
-                <h2>{alphaData["Meta Data"]["2. Symbol"]}</h2>
+            <section className="container border my-3 py-3">
+            <h2 className="my-2">Current Amount {cash}</h2>
+            <button className="my-2" onClick={cashChange}>Click</button>
+            <form className="my-2">
+                <fieldset>
+                    <div className="my-2">
+                        <label htmlFor="newData">Buy</label>
+                        <input id="buy" type="text" required onChange={handleFieldChange}/>
+                    </div>
+                    <div className="my-2">
+                        <label htmlFor="newData">Sell</label>
+                        <input id="sell" type="text" required onChange={handleFieldChange}/>
+                    </div>
+
+                    <div>
+                <button
+                    type="button"
+                    onClick={newTicker}
+                >Submit</button>
+            </div>
+                </fieldset>
+            </form>
+            { alphaData["Error Message"] != null ? 
+                Object.entries(alphaData).length !== 0 || alphaData["Error Message"] == null ? <section className="border my-3 py-3">
                  {
                      timeSeries.length != 0 ? timeSeries.map(element => <AlgoStockJSX key={element.id} info={element} /> ) : null
                 }
-            </section> : null}
+            </section> : null : null}
+            </section>
         </>
     )
 }
