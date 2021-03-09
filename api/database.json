@@ -1,34 +1,17 @@
 {
-  "algo": [
+  "BuySell": [
     {
       "id": 1,
       "ticker": "AAPL",
+      "sell": "220",
+      "buy": "200",
       "time": "3/5/2021"
     },
     {
-      "id": 2,
-      "ticker": "TSLA",
-      "time": "3/5/2021"
-    },
-    {
-      "ticker": "GOOGL",
-      "id": 3
-    },
-    {
-      "ticker": "STEVE",
-      "id": 4
-    },
-    {
-      "ticker": "GREG",
-      "id": 5
-    },
-    {
-      "ticker": "as",
-      "id": 6
-    },
-    {
-      "ticker": "a cat in the hat",
-      "id": 7
+      "ticker": "AAPL",
+      "buy": "550",
+      "sell": "150",
+      "id": 2
     }
   ]
 }
